@@ -1,6 +1,7 @@
 import dbConnect from '../../../utils/dbConnect'
-import orderService from '../../../services/orderService'
-import Order from '../../../models/Order'
+import itemService from '../../../services/itemService'
+import cartService from '../../../services/cartService'
+import Item from '../../../models/Item'
 import authenticate from '../../../utils/authenticate'
 
 export default async (req, res) => {
@@ -10,8 +11,8 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const orders = await orderService.getAll()
-        res.status(200).json(orders.map(Order.format))
+        const items = await itemService.getAll()
+        res.status(200).json(items.map(Item.format))
       } catch (error) {
         res.status(400).json(error.message)
       }
@@ -21,8 +22,14 @@ export default async (req, res) => {
         if (!userId) {
           return res.status(401).json('You have to be authenticated to execute this task.')
         }
-        const order = await orderService.create({ ...req.body, buyer: userId })
-        res.status(200).json(Order.format(order))
+        const buyerId = await cartService.getBuyerId(req.body.cart)
+
+        if (userId !== buyerId) {
+          return res.status(403).json('You do not have the permission to execute this task.')
+        }
+
+        const item = await itemService.create({ ...req.body, buyer: userId })
+        res.status(200).json(Item.format(item))
       } catch (error) {
         res.status(400).json(error.message)
       }

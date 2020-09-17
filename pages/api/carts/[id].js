@@ -1,6 +1,6 @@
 import dbConnect from '../../../utils/dbConnect'
-import orderService from '../../../services/orderService'
-import Order from '../../../models/Order'
+import cartService from '../../../services/cartService'
+import Cart from '../../../models/Cart'
 import authenticate from '../../../utils/authenticate'
 
 export default async (req, res) => {
@@ -8,7 +8,7 @@ export default async (req, res) => {
   const userId = authenticate(req.cookies.jwt)
 
   const id = req.query.id
-  const buyerId = await orderService.getBuyerId(id)
+  const buyerId = await cartService.getBuyerId(id)
 
   if (userId !== buyerId) {
     return res.status(403).json('You do not have the permission to execute this task.')
@@ -17,23 +17,23 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const order = await orderService.getOne(id)
-        res.status(200).json(Order.format(order))
+        const cart = await cartService.getOne(id)
+        res.status(200).json(Cart.format(cart))
       } catch (error) {
         res.status(400).json(error.message)
       }
       break
     case 'PUT':
       try {
-        const order = await orderService.updateOne(id, req.body)
-        res.status(200).json(Order.format(order))
+        const cart = await cartService.updateOne(id, req.body)
+        res.status(200).json(Cart.format(cart))
       } catch (error) {
         res.status(400).json(error.message)
       }
       break
     case 'DELETE':
       try {
-        await orderService.deleteOne(id)
+        await cartService.deleteOne(id)
         res.status(204).end()
       } catch (error) {
         res.status(400).json(error.message)
