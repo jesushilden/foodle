@@ -16,30 +16,35 @@ const Signup = () => {
 
   return (
     <Layout title="Foodle - Signup">
+      <div>
+        <label>Name</label>
+        <input
+          name="name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </div>
 
-      <label>Name</label>
-      <input
-        name="name"
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+      <div>
+        <label>Email</label>
+        <input
+          name="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
 
-      <label>Email</label>
-      <input
-        name="email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-
-      <label>Password</label>
-      <input
-        name="password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <div>
+        <label>Password</label>
+        <input
+          name="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
 
       <button onClick={() => handleSignup(name, email, password)}>Signup</button>
 

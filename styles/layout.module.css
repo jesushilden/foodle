@@ -1,0 +1,15 @@
+.nav {
+  background-color: gray;
+}
+
+.navItem {
+  display: inline-block;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.activeNavItem {
+  display: inline-block;
+  padding: 5px;
+  background-color: lightgray;
+}
