@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import Head from 'next/head'
 import axios from 'axios'
-import Layout from '../components/Layout'
 
 const handleSignup = async (name, email, password) => {
   const response = await axios.post('/api/users', { name, email, password })
@@ -15,7 +15,10 @@ const Signup = () => {
   const [password, setPassword] = useState('')
 
   return (
-    <Layout title="Foodle - Signup">
+    <div>
+      <Head>
+        <title>Foodle - Signup</title>
+      </Head>
       <div>
         <label>Name</label>
         <input
@@ -48,7 +51,7 @@ const Signup = () => {
 
       <button onClick={() => handleSignup(name, email, password)}>Signup</button>
 
-    </Layout>
+    </div>
   )
 }
 

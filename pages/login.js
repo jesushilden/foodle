@@ -1,20 +1,17 @@
-import { useState } from 'react'
-import axios from 'axios'
-import Layout from '../components/Layout'
-
-const handleLogin = async (email, password) => {
-  const response = await axios.post('/api/login', { email, password })
-  const user = response.data
-  console.log(user)
-  alert('User with name ' + user.name + ' logged in.')
-}
+import { useState, useContext } from 'react'
+import Head from 'next/head'
+import UserContext from '../components/UserContext'
 
 const Login = () => {
+  const { login } = useContext(UserContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   return (
-    <Layout title="Foodle - Login">
+    <div>
+      <Head>
+        <title>Foodle - Login</title>
+      </Head>
       <div>
         <label>Email</label>
         <input
@@ -35,9 +32,8 @@ const Login = () => {
         />
       </div>
 
-      <button onClick={() => handleLogin(email, password)}>Login</button>
-
-    </Layout>
+      <button onClick={() => login(email, password)}>Login</button>
+    </div>
   )
 }
 

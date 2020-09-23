@@ -1,7 +1,43 @@
+import React from 'react'
+import App from 'next/app'
 import '../styles/globals.css'
+import Layout from '../components/Layout'
+import UserContext from '../components/UserContext'
+import axios from 'axios'
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+export default class MyApp extends App {
+  state = {
+    user: null
+  }
+
+  componentDidMount = async () => {
+    const response = await axios.get('/api/login')
+    const user = response.data
+    this.setState({ user })
+  }
+
+  login = async (email, password) => {
+    const response = await axios.post('/api/login', { email, password })
+    const user = response.data
+    alert('User with name ' + user.name + ' logged in.')
+    this.setState({ user })
+  }
+
+  logout = async () => {
+    await axios.post('/api/logout')
+    alert(this.state.user.name + ' logged out.')
+    this.setState({ user: null })
+  }
+
+  render() {
+    const { Component, pageProps } = this.props
+
+    return (
+      <UserContext.Provider value={{ user: this.state.user, login: this.login, logout: this.logout }}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </UserContext.Provider>
+    )
+  }
 }
-
-export default MyApp
