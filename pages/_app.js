@@ -10,10 +10,20 @@ export default class MyApp extends App {
     user: null
   }
 
+  static async getInitialProps(ctx) {
+    const appProps = await App.getInitialProps(ctx)
+    const test = 'hello'
+
+    return { ...appProps, test }
+  }
+
   componentDidMount = async () => {
-    const response = await axios.get('/api/login')
-    const user = response.data
-    this.setState({ user })
+    try {
+      const response = await axios.get('/api/login')
+      const user = response.data
+      this.setState({ user })
+    } catch (e) {
+    }
   }
 
   login = async (email, password) => {

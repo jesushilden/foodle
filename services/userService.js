@@ -6,6 +6,10 @@ const getAll = async () => {
 }
 
 const getOne = async (id) => {
+  if (!id) {
+    throw new Error('Please provide a valid id.')
+  }
+  
   return await User.findById(id)
 }
 

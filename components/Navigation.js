@@ -16,6 +16,11 @@ const Navigation = () => {
           <a>Home</a>
         </Link>
       </div>
+      <div className={router.pathname === '/products' ? styles.activeNavItem : styles.navItem}>
+        <Link href="/products">
+          <a>Products</a>
+        </Link>
+      </div>
       {!user && <div className={router.pathname === '/login' ? styles.activeNavItem : styles.navItem}>
         <Link href="/login">
           <a>Login</a>
