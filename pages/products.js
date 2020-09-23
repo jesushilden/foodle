@@ -6,7 +6,7 @@ const Products = ({ products }) => {
     <div>
       <h1>Products</h1>
       <ul>
-        {products && products.map(product => <li>{product.name}</li>)}
+        {products && products.map(product => <li key={product._id}>{product.name}</li>)}
       </ul>
     </div>
   )

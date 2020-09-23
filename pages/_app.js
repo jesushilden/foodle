@@ -1,20 +1,13 @@
 import React from 'react'
 import App from 'next/app'
+import axios from 'axios'
 import '../styles/globals.css'
 import Layout from '../components/Layout'
 import UserContext from '../components/UserContext'
-import axios from 'axios'
 
 export default class MyApp extends App {
   state = {
     user: null
-  }
-
-  static async getInitialProps(ctx) {
-    const appProps = await App.getInitialProps(ctx)
-    const test = 'hello'
-
-    return { ...appProps, test }
   }
 
   componentDidMount = async () => {
