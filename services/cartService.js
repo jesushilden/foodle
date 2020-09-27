@@ -8,8 +8,15 @@ const getOne = async (id) => {
   return await Cart.findById(id)
 }
 
-const getCartByBuyerId = async (buyerId) => {
-  return await Cart.findOne({ buyer: buyerId })
+const getOrCreateCartByBuyerId = async (buyerId) => {
+  const cart = await Cart.findOne({ buyer: buyerId, payed: false })
+
+  if (cart) {
+    return cart
+  } else {
+    return create({ buyer: buyerId })
+  }
+
 }
 
 const getBuyerId = async (id) => {
@@ -48,7 +55,7 @@ const deleteOne = async (id) => {
 export default {
   getAll,
   getOne,
-  getCartByBuyerId,
+  getOrCreateCartByBuyerId,
   getBuyerId,
   create,
   updateOne,

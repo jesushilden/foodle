@@ -31,6 +31,16 @@ const Navigation = () => {
           <a>Signup</a>
         </Link>
       </div>}
+      {user && <div className={router.pathname === '/profile' ? styles.activeNavItem : styles.navItem}>
+        <Link href="/profile">
+          <a>Profile</a>
+        </Link>
+      </div>}
+      {user && <div className={router.pathname === '/cart' ? styles.activeNavItem : styles.navItem}>
+        <Link href="/cart">
+          <a>Cart</a>
+        </Link>
+      </div>}
       {user && <div className={styles.navItem}>
         <a onClick={logout}>Logout</a>
       </div>}
