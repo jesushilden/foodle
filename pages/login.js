@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 import Head from 'next/head'
 import UserContext from '../components/UserContext'
 
-const Login = () => {
+const LoginPage = () => {
   const { login } = useContext(UserContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -37,4 +37,4 @@ const Login = () => {
   )
 }
 
-export default Login 
+export default LoginPage

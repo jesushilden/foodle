@@ -2,17 +2,16 @@ import { useState } from 'react'
 import Head from 'next/head'
 import axios from 'axios'
 
-const handleSignup = async (name, email, password) => {
-  const response = await axios.post('/api/users', { name, email, password })
-  const user = response.data
-  console.log(user)
-  alert('User with name ' + user.name + ' created.')
-}
-
-const Signup = () => {
+const SignupPage = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const addUser = async () => {
+    const response = await axios.post('/api/users', { name, email, password })
+    const user = response.data
+    alert('User with name ' + user.name + ' created.')
+  }
 
   return (
     <div>
@@ -49,10 +48,10 @@ const Signup = () => {
         />
       </div>
 
-      <button onClick={() => handleSignup(name, email, password)}>Signup</button>
+      <button onClick={addUser}>Signup</button>
 
     </div>
   )
 }
 
-export default Signup 
+export default SignupPage 
